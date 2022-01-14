@@ -1,48 +1,22 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useContext } from "react";
+import ReactDOM from "react-dom";
+
+const MyContext = React.createContext();
 
 const App = () => {
-
   return (
-    <div>
-      <HookSwitcher />
-    </div>
+    <MyContext.Provider value={"React Hooks App"} >
+      <Child />
+    </MyContext.Provider>
   );
 };
 
-const HookSwitcher = () => {
-
-  const [ color, setColor ] = useState('gray');
-  const [ fontSize, setFontSize] = useState(20);
-
-  return (
-    <div style={{ padding: '10px',
-      backgroundColor: color,
-      fontSize: `${fontSize}px`
-    }}>
-      <button
-        onClick={() => setColor('gray')}>
-        Dark
-      </button>
-      <button
-        onClick={() => setColor('white')}>
-        Light
-      </button>
-      <button
-        onClick={() => setFontSize((s) => s + 2)}>
-        +
-      </button>
-      <button
-        onClick={() => setFontSize((s) => s - 2)}>
-        -
-      </button>
-      <p>React Hooks App</p>
-    </div>
-  );
-};
+const Child = () => {
+  const value = useContext(MyContext);
+  return <h1> {value} </h1>;
+}
 
 ReactDOM.render(
-    <App />,
+  <App />,
   document.getElementById('root')
 );
-
